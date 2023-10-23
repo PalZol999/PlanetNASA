@@ -5,8 +5,8 @@ const {
   abortLaunchById
 } = require("../../models/lauches.model");
 
-function httpGetAllLunches(req, res) {
-  return res.status(200).json(getAllLunches());
+async function httpGetAllLunches(req, res) {
+  return res.status(200).json(await getAllLunches());
 }
 
 function httpAddNewLaunch(req, res) {

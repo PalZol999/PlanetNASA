@@ -1,4 +1,7 @@
+const launchesDatabase = require("./launches.mongo");
+
 const launches = new Map();
+
 let lastestFlightNumber = 100;
 
 const launch = {
@@ -12,39 +15,55 @@ const launch = {
   succes: true,
 };
 
-launches.set(launch.flightNumber, launch);
+saveLaunch(launch);
 
-function existLaunchWithId(launchId){
-  return launches.has(launchId)
+//launches.set(launch.flightNumber, launch);
+
+function existLaunchWithId(launchId) {
+  return launches.has(launchId);
 }
 
-function getAllLunches() {
-  return Array.from(launches.values());
+async function getAllLunches() {
+  return await launchesDatabase.find({}, { _id: 0, __v: 0 });
+}
+
+async function saveLaunch(launch) {
+  await launchesDatabase.updateOne(
+    {
+      flightNumber: launch.flightNumber,
+    },
+    launch,
+    {
+      upsert: true,
+    }
+  );
 }
 
 function addNewLaunch(launch) {
   lastestFlightNumber++;
-  launches.set(lastestFlightNumber, Object.assign(launch, {
-    success: true,
-    upcoming: true,
-    customers: ['Zero to Mastery', 'NASA'],
-    flightNumber: lastestFlightNumber
-  }));
+  launches.set(
+    lastestFlightNumber,
+    Object.assign(launch, {
+      success: true,
+      upcoming: true,
+      customers: ["Zero to Mastery", "NASA"],
+      flightNumber: lastestFlightNumber,
+    })
+  );
 }
 
 function abortLaunchById(launchId) {
-  const aborted= launches.get(launchId)
-  aborted.upcoming= false
-  aborted.success= false
-  return aborted
-  }
+  const aborted = launches.get(launchId);
+  aborted.upcoming = false;
+  aborted.success = false;
+  return aborted;
+}
 
 module.exports = {
-  existLaunchWithId, // ???? 
+  existLaunchWithId, // ????
   getAllLunches,
   addNewLaunch,
-  abortLaunchById
-  
+  abortLaunchById,
 };
 
 // This is the error that I get: ReferenceError: abortLaunchById is not defined

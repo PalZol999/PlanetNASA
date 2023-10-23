@@ -2,13 +2,13 @@ import { useMemo } from "react";
 import { Appear, Button, Loading, Paragraph } from "arwes";
 import Clickable from "../components/Clickable";
 
-const Launch = props => {
-  const selectorBody = useMemo(() => {
-    return props.planets?.map(planet => 
-      <option value={planet.kepler_name} key={planet.kepler_name}>{planet.kepler_name}</option>
-    );
-  }, [props.planets]);
-  console.log(props.planets);
+  const Launch = props => {
+    const selectorBody = useMemo(() => {
+      return props.planets?.map(planet => 
+        <option value={planet.keplerName} key={planet.keplerName}>{planet.keplerName}</option>
+      );
+    }, [props.planets]);
+
   const today = new Date().toISOString().split("T")[0];
 
   return <Appear id="launch" animate show={props.entered}>
