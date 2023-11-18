@@ -110,7 +110,7 @@ async function saveLaunch(launch) {
 
 async function scheduleNewLaunch(launch) {
   const planet = await planets.findOne({
-    kelplerName: launch.target,
+    keplerName: launch.target,
   });
 
   if (!planet) {
