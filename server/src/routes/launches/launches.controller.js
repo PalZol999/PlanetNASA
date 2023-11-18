@@ -1,5 +1,5 @@
 const {
-  getAllLunches,
+  getAllLaunches,
   scheduleNewLaunch,
   existLaunchWithId,
   abortLaunchById
@@ -9,7 +9,7 @@ const {getPagination} =require('../../services/query')
 
 async function httpGetAllLunches(req, res) {
   const {skip, limit} = getPagination(req.query)
-  const launches= await getAllLunches(skip, limit)
+  const launches= await getAllLaunches(skip, limit)
   return res.status(200).json(launches);
 }
 
@@ -62,6 +62,4 @@ module.exports = {
   httpAddNewLaunch,
   httpGetAllLunches,
   httpAbortLaunch,
-  //abortLaunchById,
-  //existLaunchWithId
 };

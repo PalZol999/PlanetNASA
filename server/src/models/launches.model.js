@@ -88,7 +88,7 @@ async function getLatestFlightNumbers() {
   return latestLaunch.flightNumber;
 }
 
-async function getAllLunches(skip, limit) {
+async function getAllLaunches(skip, limit) {
   return await launchesDatabase
   .find({}, { _id: 0, __v: 0 })
   .sort({flightNumber: 1})
@@ -150,7 +150,7 @@ async function abortLaunchById(launchId) {
 module.exports = {
   loadLaunchData,
   existLaunchWithId,
-  getAllLunches,
+  getAllLaunches,
   scheduleNewLaunch,
   abortLaunchById,
 };
